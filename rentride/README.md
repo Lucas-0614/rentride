@@ -44,8 +44,6 @@ parts I would now do differently — which is itself part of the story:
 - Front end is multiple standalone HTML pages; a templating layer or framework would remove
   the duplicated markup.
 
-> Documenting these honestly is intentional: it shows I can read my own older code critically
-> and know what "production-grade" would require.
 
 ## License
 
