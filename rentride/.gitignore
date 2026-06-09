@@ -1,0 +1,11 @@
+connection.php
+.DS_Store
+Thumbs.db
+.vscode/
+*.log
+# Runtime-generated data (contains customer PII / payment info — never commit)
+customers.json
+payments.json
+payment_log.json
+payment_log.txt
+*.bak

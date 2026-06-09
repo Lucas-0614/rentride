@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            background-color: #000;
+            padding: 10px 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img {
+            height: 50px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            padding: 0;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        nav ul li a:hover {
+            color: #ff6600;
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .booking-form {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        .booking-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .booking-form select, .booking-form input[type="number"], .booking-form input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .booking-form .calculate-button {
+            background-color: #ff6600;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .booking-form .calculate-button:hover {
+            background-color: #e65c00;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.php">
+                <img src="img/logo.png" alt=" " style="width: 200px; height: auto;">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="services.html" class="services-button">Services</a></li>
+                <li><a href="vehicle.html" class="vehicle-button">Vehicle</a></li>
+                <li><a href="faq.html" class="faq-button">FAQ</a></li>
+                <li><a href="terms.html" class="terms-button">Terms & Conditions</a></li>
+                <li><a href="login.html" class="login-button">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="booking-form">
+            <h2>Booking Details</h2>
+            <form id="bookingForm" action="payment.html" method="GET" onsubmit="return handleSubmit()">
+                <label for="vehicleType">Vehicle Type:</label>
+                <select id="vehicleType" name="vehicleType" onchange="updateOptions()">
+                    <option value="car">Car</option>
+                    <option value="van">Van</option>
+                </select>
+
+                <label for="carType">Model:</label>
+                <select id="carType" name="carType" onchange="updatePrice()">
+                    <!-- Options populated dynamically by updateOptions() -->
+                </select>
+
+                <label for="pricePerDay">Price Per Day (RM):</label>
+                <input type="text" id="pricePerDay" name="pricePerDay" readonly>
+
+                <label for="duration">Duration (days):</label>
+                <input type="number" id="duration" name="duration" min="1" onchange="calculateTotal()" required>
+
+                <label for="totalCost">Total Cost (RM):</label>
+                <input type="text" id="totalCost" name="totalCost" readonly>
+
+                <button type="button" class="calculate-button" onclick="calculateTotal()">Calculate Total Cost</button>
+                <button type="submit" class="calculate-button">Proceed to Payment</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 RentRide. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function updateOptions() {
+            var vehicleType = document.getElementById("vehicleType").value;
+            var carTypeSelect = document.getElementById("carType");
+
+            while (carTypeSelect.options.length > 0) {
+                carTypeSelect.remove(0);
+            }
+
+            var carOptions = {
+                "car": [
+                    { value: "bmw-3-series", text: "BMW 3 Series", price: 120 },
+                    { value: "bmw-i7-series", text: "BMW i7 Series", price: 120 },
+                    { value: "toyota-camry-2.0", text: "Toyota Camry 2.0", price: 87 },
+                    { value: "honda-city", text: "Honda City", price: 67 },
+                    { value: "mercedes-e-class", text: "Mercedes E-Class", price: 150 },
+                    { value: "audi-a4", text: "Audi A4", price: 140 },
+                    { value: "honda-civic", text: "Honda Civic", price: 70 },
+                    { value: "mazda-cx5", text: "Mazda CX-5", price: 65 },
+                    { value: "nissan-almera", text: "Nissan Almera", price: 70 }
+                ],
+                "van": [
+                    { value: "nissan-urvan-nv350", text: "Nissan Urvan NV350", price: 475 },
+                    { value: "nissan-urvan-e25", text: "Nissan Urvan E25", price: 295 },
+                    { value: "toyota-hiace-van", text: "Toyota Hiace Van", price: 310 },
+                    { value: "cam-placer-x18", text: "CAM Placer X 18", price: 600 },
+                    { value: "toyota-hiace-h300", text: "Toyota Hiace H300", price: 700 },
+                    { value: "hyundai-starex", text: "Hyundai Starex", price: 500 }
+                ]
+            };
+
+            var selectedOptions = carOptions[vehicleType];
+            selectedOptions.forEach(function(option) {
+                var newOption = new Option(option.text, option.value);
+                newOption.setAttribute('data-price', option.price);
+                carTypeSelect.options.add(newOption);
+            });
+
+            updatePrice();
+        }
+
+        function updatePrice() {
+            var carTypeSelect = document.getElementById("carType");
+            var selectedOption = carTypeSelect.options[carTypeSelect.selectedIndex];
+            var pricePerDay = selectedOption.getAttribute('data-price');
+            document.getElementById("pricePerDay").value = pricePerDay;
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            var duration = parseInt(document.getElementById("duration").value) || 0;
+            var pricePerDay = parseInt(document.getElementById("pricePerDay").value) || 0;
+            var totalCost = pricePerDay * duration;
+            document.getElementById("totalCost").value = totalCost;
+        }
+
+        function handleSubmit() {
+            var totalCost = document.getElementById("totalCost").value;
+            window.location.href = "payment.html?amount=" + encodeURIComponent(totalCost);
+            return false;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            updateOptions();
+        });
+    </script>
+</body>
+</html>

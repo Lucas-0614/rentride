@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fleet Management - Admin Dashboard</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="stylesadmin.css">
+    <style>
+        /* Inline CSS for specific adjustments */
+        .fleet-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .fleet-card {
+            background-color: #fff;
+            flex: 1;
+            margin: 0 10px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .fleet-card-content h3 {
+            margin: 0;
+            color: #777;
+        }
+
+        .fleet-card-content p {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .vehicle-list {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .vehicle-list h3 {
+            margin: 0 0 20px 0;
+            color: #333;
+        }
+
+        .vehicle-list table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .vehicle-list th,
+        .vehicle-list td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .vehicle-list th {
+            background-color: #f2f2f2;
+            font-weight: normal;
+        }
+
+        .vehicle-list td input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .vehicle-list td select {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .delete-btn {
+            padding: 5px 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .rent-status {
+            padding: 5px 10px;
+            background-color: #03a9f4;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .rent-status:hover {
+            background-color: #0288d1;
+        }
+
+        .vehicle-graph {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside>
+            <div class="logo">
+                <h1>RentRide</h1>
+            </div>
+            <nav>
+                <a href="adminindex.html">
+                    <span class="material-symbols-sharp">dashboard</span>
+                    Dashboard
+                </a>
+                <a href="customers.html">
+                    <span class="material-symbols-sharp">event_note</span>
+                    Customers
+                </a>
+                <a href="staffs.html">
+                    <span class="material-symbols-sharp">people</span>
+                    Staffs
+                </a>
+                <a href="fleetmanagement.html" class="active">
+                    <span class="material-symbols-sharp">car_rental</span>
+                    Fleet Management
+                </a>
+                <a href="overview.html">
+                    <span class="material-symbols-sharp">insights</span>
+                    Overview
+                </a>
+                <a href="index.php">
+                    <span class="material-symbols-sharp">logout</span>
+                    Logout
+                </a>
+            </nav>
+            <div class="profile">
+                <img src="profile-pic.jpg" alt="Profile Picture">
+                <div>
+                    <h4>Paviteran</h4>
+                    <small>Admin</small>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main>
+            <header>
+                <h2>Welcome back, Paviteran <span class="wave">👋</span></h2>
+            </header>
+
+            <div class="fleet-container">
+                <div class="fleet-card" id="totalCarsCard">
+                    <div class="fleet-card-content">
+                        <h3>Total Cars</h3>
+                        <h1 id="totalCars">0</h1>
+                    </div>
+                </div>
+                <div class="fleet-card" id="totalVansCard">
+                    <div class="fleet-card-content">
+                        <h3>Total Vans</h3>
+                        <h1 id="totalVans">0</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vehicle-list">
+                <h3>Vehicle List</h3>
+                <form id="addVehicleForm">
+                    <label for="vehicleType">Type:</label>
+                    <select id="vehicleType" name="vehicleType">
+                        <option value="Car">Car</option>
+                        <option value="Van">Van</option>
+                    </select><br><br>
+                    <label for="make">Make:</label>
+                    <input type="text" id="make" name="make" required><br><br>
+                    <label for="model">Model:</label>
+                    <input type="text" id="model" name="model" required><br><br>
+                    <label for="serviceDate">Service Date:</label>
+                    <input type="date" id="serviceDate" name="serviceDate" required><br><br>
+                    <button type="button" class="add-vehicle-btn" onclick="addVehicle()">Add Vehicle</button>
+                </form>
+                <table id="vehicleListTable">
+                    <thead>
+                        <tr>
+                            <th>Vehicle ID</th>
+                            <th>Type</th>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Service Date</th>
+                            <th>Rental Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vehicleListBody">
+                        <!-- Vehicle list rows will be dynamically populated here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Vehicle Graph -->
+            <div class="vehicle-graph">
+                <canvas id="vehicleStatusChart" width="400" height="200"></canvas>
+            </div>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Mock data for existing vehicles
+        const existingVehicles = [
+            { id: 1, type: 'Van', make: 'Nissan', model: 'Urvan NV350', serviceDate: '2024-07-15', rentalStatus: 'Available' },
+            { id: 2, type: 'Van', make: 'Nissan', model: 'Urvan E25', serviceDate: '2024-07-15', rentalStatus: 'Available' },
+            { id: 3, type: 'Van', make: 'Toyota', model: 'Hiace Van', serviceDate: '2024-07-15', rentalStatus: 'Available' },
+            { id: 4, type: 'Van', make: 'CAM', model: 'Placer X 18', serviceDate: '2024-07-15', rentalStatus: 'Available' },
+            { id: 5, type: 'Van', make: 'Toyota', model: 'Hiace H300', serviceDate: '2024-07-15', rentalStatus: 'Available' },
+            { id: 6, type: 'Van', make: 'Hyundai', model: 'Starex', serviceDate: '2024-07-15', rentalStatus: 'Available' },
+            { id: 7, type: 'Car', make: 'BMW', model: '3 Series', serviceDate: '2024-07-15', rentalStatus: 'Available' },
+            { id: 8, type: 'Car', make: 'BMW', model: 'i7 Series', serviceDate: '2024-07-15', rentalStatus: 'Available' },
+            { id: 9, type: 'Car', make: 'Toyota', model: 'Camry 2.0', serviceDate: '2024-07-15', rentalStatus: 'Available' },
+            { id: 10, type: 'Car', make: 'Honda', model: 'City', serviceDate: '2024-07-15', rentalStatus: 'Available' },
+            { id: 11, type: 'Car', make: 'Mercedes', model: 'E-Class', serviceDate: '2024-07-15', rentalStatus: 'Available' },
+            { id: 12, type: 'Car', make: 'Audi', model: 'A4', serviceDate: '2024-07-15', rentalStatus: 'Available' },
+            { id: 13, type: 'Car', make: 'Honda', model: 'Civic', serviceDate: '2024-07-15', rentalStatus: 'Available' },
+            { id: 14, type: 'Car', make: 'Mazda', model: 'CX-5', serviceDate: '2024-07-15', rentalStatus: 'Available' },
+            { id: 15, type: 'Car', make: 'Nissan', model: 'Almera', serviceDate: '2024-07-15', rentalStatus: 'Available' }
+        ];
+
+        let vehicles = [...existingVehicles];
+        let myChart; // Variable to hold the Chart.js instance
+
+        // Function to initialize the chart
+        function initializeChart() {
+            const ctx = document.getElementById('vehicleStatusChart').getContext('2d');
+            myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Rented', 'Available'],
+                    datasets: [{
+                        label: 'Vehicle Rental Status',
+                        data: [],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Function to add a new vehicle to the list
+        function addVehicle() {
+            const vehicleType = document.getElementById('vehicleType').value;
+            const make = document.getElementById('make').value;
+            const model = document.getElementById('model').value;
+            const serviceDate = document.getElementById('serviceDate').value;
+
+            // Create a new vehicle object
+            const newVehicle = {
+                id: vehicles.length + 1,
+                type: vehicleType,
+                make: make,
+                model: model,
+                serviceDate: serviceDate,
+                rentalStatus: 'Available'
+            };
+
+            // Add the new vehicle to the vehicles array
+            vehicles.push(newVehicle);
+
+            // Update UI
+            updateVehicleList();
+            updateTotalVehiclesCount();
+            updateVehicleGraph();
+        }
+
+        // Function to update vehicle list table
+        function updateVehicleList() {
+            const vehicleListBody = document.getElementById('vehicleListBody');
+            if (vehicleListBody) {
+                vehicleListBody.innerHTML = vehicles.map(vehicle => `
+                    <tr>
+                        <td>${vehicle.id}</td>
+                        <td>${vehicle.type}</td>
+                        <td>${vehicle.make}</td>
+                        <td>${vehicle.model}</td>
+                        <td>${vehicle.serviceDate}</td>
+                        <td>
+                            <select onchange="updateRentalStatus(${vehicle.id}, this.value)">
+                                <option value="Available" ${vehicle.rentalStatus === 'Available' ? 'selected' : ''}>Available</option>
+                                <option value="Rented" ${vehicle.rentalStatus === 'Rented' ? 'selected' : ''}>Rented</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class="delete-btn" onclick="deleteVehicle(${vehicle.id})">Delete</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // Function to update rental status of a vehicle
+        function updateRentalStatus(id, status) {
+            const vehicle = vehicles.find(vehicle => vehicle.id === id);
+            if (vehicle) {
+                vehicle.rentalStatus = status;
+                updateVehicleList();
+                updateVehicleGraph();
+            }
+        }
+
+        // Function to delete a vehicle from the list
+        function deleteVehicle(id) {
+            vehicles = vehicles.filter(vehicle => vehicle.id !== id);
+            updateVehicleList();
+            updateTotalVehiclesCount();
+            updateVehicleGraph();
+        }
+
+        // Function to update total cars and vans count
+        function updateTotalVehiclesCount() {
+            const totalCarsCount = vehicles.filter(vehicle => vehicle.type === 'Car').length;
+            const totalVansCount = vehicles.filter(vehicle => vehicle.type === 'Van').length;
+
+            document.getElementById('totalCars').textContent = totalCarsCount;
+            document.getElementById('totalVans').textContent = totalVansCount;
+        }
+
+        // Function to update the vehicle rental status graph
+        function updateVehicleGraph() {
+            const rentedCount = vehicles.filter(vehicle => vehicle.rentalStatus === 'Rented').length;
+            const availableCount = vehicles.filter(vehicle => vehicle.rentalStatus === 'Available').length;
+
+            // Update chart data
+            myChart.data.datasets[0].data = [rentedCount, availableCount];
+            myChart.update();
+        }
+
+        // Initial setup on page load
+        initializeChart();
+        updateVehicleList();
+        updateTotalVehiclesCount();
+    </script>
+</body>
+
+</html>

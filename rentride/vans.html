@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Van Rental - RentRide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles1.css">
+    <style>
+        .no-results {
+            display: none;
+            color: red;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.php">
+                <img src="img/logo.png" alt="RentRide Logo">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="services.html" class="services-button">Services</a></li>
+                <li class="dropdown">
+                    <a href="vehicle.html" class="vehicle-button">Vehicle</a>
+                    <ul class="dropdown-content">
+                        <li><a href="cars.html">Cars</a></li>
+                        <li><a href="vans.html">Vans</a></li>
+                    </ul>
+                </li>
+                <li><a href="faq.html" class="faq-button">FAQ</a></li>
+                <li><a href="terms.html" class="terms-button">Terms & Conditions</a></li>
+                <li><a href="logout.php">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="hero-section">
+            <h1>Van Rental - Search, Compare & Save</h1>
+            <p>Free cancellations on most bookings • 60,000+ locations • Customer support in 40+ languages</p>
+        </div>
+
+        <div class="search-filter">
+            <input type="text" id="searchInput" placeholder="Search for a van">
+            <button onclick="searchVans()">Search</button>
+        </div>
+
+        <div class="car-listings">
+            <div class="car-item" data-name="nissan urvan nv350">
+                <a href="nissan-urvan-nv350.html">
+                    <img src="img/Nissan_Urvan_NV350.png" alt="Nissan Urvan NV350">
+                    <h3>Nissan Urvan NV350</h3>
+                    <p>RM 475.00 / DAY</p>
+                    <div class="rating">★★★★☆</div>
+                </a>
+            </div>
+            <div class="car-item" data-name="nissan urvan e25">
+                <a href="nissan-urvan-e25.html">
+                    <img src="img/Nissan_Urvan_E25.png" alt="Nissan Urvan E25">
+                    <h3>Nissan Urvan E25</h3>
+                    <p>RM 295.00 / DAY</p>
+                    <div class="rating">★★★★☆</div>
+                </a>
+            </div>
+            <div class="car-item" data-name="toyota hiace van">
+                <a href="toyota-hiace-van.html">
+                    <img src="img/Toyota_Hiace_Van.png" alt="Toyota Hiace Van">
+                    <h3>Toyota Hiace Van</h3>
+                    <p>RM 310.00 / DAY</p>
+                    <div class="rating">★★★★☆</div>
+                </a>
+            </div>
+            <div class="car-item" data-name="cam placer x 18">
+                <a href="cam-placer-x18.html">
+                    <img src="img/CAM_Placer_X_18.png" alt="CAM Placer X 18">
+                    <h3>CAM Placer X 18</h3>
+                    <p>RM 600.00 / DAY</p>
+                    <div class="rating">★★★★☆</div>
+                </a>
+            </div>
+            <div class="car-item" data-name="toyota hiace h300">
+                <a href="toyota-hiace-h300.html">
+                    <img src="img/Toyota_Hiace_H300.png" alt="Toyota Hiace H300">
+                    <h3>Toyota Hiace H300</h3>
+                    <p>RM 700.00 / DAY</p>
+                    <div class="rating">★★★★☆</div>
+                </a>
+            </div>
+            <div class="car-item" data-name="hyundai starex">
+                <a href="hyundai-starex.html">
+                    <img src="img/Hyundai_Starex.png" alt="Hyundai Starex">
+                    <h3>Hyundai Starex</h3>
+                    <p>RM 500.00 / DAY</p>
+                    <div class="rating">★★★★☆</div>
+                </a>
+            </div>
+        </div>
+        <div class="no-results">No vehicles found</div>
+    </main>
+
+    <footer class="footer-distributed">
+        <div class="footer-left">
+            <h3>Rent<span>Ride</span></h3>
+            <p class="footer-links">
+                <a href="index.html" class="link-1">Home</a>
+                <a href="services.html">Services</a>
+                <a href="index.html">About</a>
+                <a href="faq.html">Faq</a>
+                <a href="terms.html">Terms&Conditions</a>
+            </p>
+            <p class="footer-company-name">RentRide © 2015</p>
+        </div>
+        <div class="footer-center">
+            <div>
+                <i class="fa fa-map-marker"></i>
+                <p><span>SO-5-6.Menaraa 1,No 3 Jalan Bangsar</span> KL Eco City, Kuala Lumpur</p>
+            </div>
+            <div>
+                <i class="fa fa-phone"></i>
+                <p>+6903885932</p>
+            </div>
+            <div>
+                <i class="fa fa-envelope"></i>
+                <p><a href="mailto:support@company.com">support@RentRide.com</a></p>
+            </div>
+        </div>
+        <div class="footer-right">
+            <p class="footer-company-about">
+                <span>About the company</span>
+                Rent Ride: Your trusted partner in seamless car rental experiences, offering a diverse fleet and
+                exceptional service tailored to your journey's needs.
+            </p>
+            <div class="footer-icons">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function searchVans() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const vanItems = document.querySelectorAll('.car-item');
+            let found = false;
+
+            vanItems.forEach(item => {
+                const name = item.getAttribute('data-name');
+                if (name.includes(searchInput)) {
+                    item.style.display = 'block';
+                    found = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            document.querySelector('.no-results').style.display = found ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>

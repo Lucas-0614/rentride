@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staffs</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="stylesadmin.css">
+    <style>
+        .cards {
+            margin-top: 20px;
+            /* Add space between table and cards */
+            display: flex;
+            gap: 20px;
+            /* Add space between each card */
+        }
+
+        .card {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .card h1 {
+            font-size: 2em;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <aside>
+            <div class="logo">
+                <h1>RentRide</h1>
+            </div>
+            <nav>
+                <a href="adminindex.html">
+                    <span class="material-symbols-sharp">dashboard</span>
+                    Dashboard
+                </a>
+                <a href="customers.html">
+                    <span class="material-symbols-sharp">event_note</span>
+                    Customers
+                </a>
+                <a href="staffs.html" class="active">
+                    <span class="material-symbols-sharp">people</span>
+                    Staffs
+                </a>
+                <a href="Fleetmanagement.html">
+                    <span class="material-symbols-sharp">car_rental</span>
+                    Fleet Management
+                </a>
+                <a href="overview.html" class=>
+                    <span class="material-symbols-sharp">insights</span>
+                    Overview
+                </a>
+                <a href="index.php">
+                    <span class="material-symbols-sharp">logout</span>
+                    Logout
+                </a> <a href="index.php">
+                    <span class="material-symbols-sharp">logout</span>
+                    Logout
+                </a>
+            </nav>
+            <div class="profile">
+                <img src="profile-pic.jpg" alt="Profile Picture">
+                <div>
+                    <h4>Paviteran</h4>
+                    <small>Admin</small>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <header>
+                <h2>Staffs Page</h2>
+            </header>
+            <div class="staff">
+                <div class="table-header">
+                    <h3>Staff</h3>
+                    <button class="add-staff-btn" onclick="addStaff()">Add Staff</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email Address</th>
+                            <th>Role</th>
+                            <th>Experience</th>
+                            <th>Salary</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="staffTableBody">
+                        <!-- Staff rows will be dynamically populated here -->
+                    </tbody>
+                </table>
+                <div class="cards">
+                    <div class="card" id="resignedCard">
+                        <h3>Resigned Employees</h3>
+                        <h1 id="resignedCount">0</h1>
+                    </div>
+                    <div class="card" id="terminatedCard">
+                        <h3>Terminated Employees</h3>
+                        <h1 id="terminatedCount">0</h1>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        // Initial staff data (example data)
+        let staffData = [
+            { name: "Alex Tan", email: "alex@rentride.local", role: "HR Manager", experience: "Advanced", status: "Vacation", salary: "6000" },
+            { name: "Jordan Lee", email: "jordan@rentride.local", role: "Managing Director", experience: "Advanced", status: "At Work", salary: "8000" },
+            { name: "Sam Wong", email: "sam@rentride.local", role: "Promoter", experience: "Advanced", status: "Vacation", salary: "5000" }
+        ];
+
+        let resignedCount = 0;
+        let terminatedCount = 0;
+
+        // Function to load staff data from localStorage on page load
+        function loadStaffData() {
+            const savedData = localStorage.getItem('staffData');
+            if (savedData) {
+                staffData = JSON.parse(savedData);
+            }
+            updateStaffTables();
+
+            const savedResignedCount = localStorage.getItem('resignedCount');
+            const savedTerminatedCount = localStorage.getItem('terminatedCount');
+            if (savedResignedCount) {
+                resignedCount = parseInt(savedResignedCount);
+                document.getElementById('resignedCount').innerText = resignedCount;
+            }
+            if (savedTerminatedCount) {
+                terminatedCount = parseInt(savedTerminatedCount);
+                document.getElementById('terminatedCount').innerText = terminatedCount;
+            }
+        }
+
+        // Function to save staff data to localStorage
+        function saveStaffData() {
+            localStorage.setItem('staffData', JSON.stringify(staffData));
+            updateStaffTables();
+        }
+
+        // Function to save resigned and terminated counts to localStorage
+        function saveCounts() {
+            localStorage.setItem('resignedCount', resignedCount);
+            localStorage.setItem('terminatedCount', terminatedCount);
+        }
+
+        // Function to update staff tables in staffs.html
+        function updateStaffTables() {
+            const staffTableBody = document.getElementById('staffTableBody');
+            if (staffTableBody) {
+                staffTableBody.innerHTML = staffData.map((staff, index) => `
+                    <tr>
+                        <td contenteditable="true">${staff.name}</td>
+                        <td contenteditable="true">${staff.email}</td>
+                        <td contenteditable="true">${staff.role}</td>
+                        <td>${staff.experience}</td>
+                        <td contenteditable="true">${staff.salary}</td>
+                        <td>
+                            <select onchange="updateStatus(${index}, this.value)">
+                                <option value="At Work" ${staff.status === 'At Work' ? 'selected' : ''}>At Work</option>
+                                <option value="Vacation" ${staff.status === 'Vacation' ? 'selected' : ''}>Vacation</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button onclick="removeStaff(${index})">Remove</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // Function to update status
+        function updateStatus(index, status) {
+            staffData[index].status = status;
+            saveStaffData();
+        }
+
+        // Function to add new staff with user input
+        function addStaff() {
+            const name = prompt("Enter Name:");
+            const email = prompt("Enter Email Address:");
+            const role = prompt("Enter Role:");
+            const experience = "Beginner"; // Assuming default experience
+            const status = "At Work"; // Assuming default status
+            const salary = prompt("Enter Salary:");
+
+            if (name && email && role && salary) {
+                const newStaff = {
+                    name: name,
+                    email: email,
+                    role: role,
+                    experience: experience,
+                    status: status,
+                    salary: salary
+                };
+                staffData.push(newStaff);
+                saveStaffData();
+            } else {
+                alert("Please enter valid details for Name, Email Address, Role, and Salary.");
+            }
+        }
+
+        // Function to remove staff
+        function removeStaff(index) {
+            const reason = prompt("Resignation or Termination?");
+            if (reason && (reason.toLowerCase() === "resignation" || reason.toLowerCase() === "termination")) {
+                if (reason.toLowerCase() === "resignation") {
+                    resignedCount++;
+                    document.getElementById('resignedCount').innerText = resignedCount;
+                } else if (reason.toLowerCase() === "termination") {
+                    terminatedCount++;
+                    document.getElementById('terminatedCount').innerText = terminatedCount;
+                }
+                staffData.splice(index, 1);
+                saveStaffData();
+                saveCounts();
+            } else {
+                alert("Please enter 'Resignation' or 'Termination' as the reason.");
+            }
+        }
+
+        // Load staff data on page load
+        window.onload = loadStaffData;
+    </script>
+</body>
+
+</html>

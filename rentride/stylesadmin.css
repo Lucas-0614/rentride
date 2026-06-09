@@ -1,0 +1,236 @@
+/* styles.css */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+aside {
+    width: 250px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logo h1 {
+    font-size: 24px;
+    color: #00695c;
+}
+
+nav {
+    margin-top: 50px;
+}
+
+nav a {
+    display: flex;
+    align-items: center;
+    padding: 15px 10px;
+    margin: 10px 0;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav a.active,
+nav a:hover {
+    background-color: #e0f7fa;
+    color: #00695c;
+}
+
+nav a span {
+    margin-right: 10px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #e0f7fa;
+    border-radius: 5px;
+    margin-top: auto;
+}
+
+.profile img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.profile h4 {
+    margin: 0;
+}
+
+.profile small {
+    color: #777;
+}
+
+/* Main Content */
+main {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+header h2 {
+    margin: 0;
+}
+
+header .clock-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #00695c;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+header .clock-btn:hover {
+    background-color: #004d40;
+}
+
+/* Cards */
+.cards {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.card {
+    background-color: #fff;
+    flex: 1;
+    margin: 0 10px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-content h3 {
+    margin: 0;
+    color: #777;
+}
+
+.card-content h1 {
+    margin: 0;
+    color: #00695c;
+}
+
+/* Stats */
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.chart,
+.vehicle-stats {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    margin: 0 10px;
+}
+
+.chart h3,
+.vehicle-stats h3 {
+    margin: 0 0 20px 0;
+}
+
+/* Staff */
+.staff {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.staff h3 {
+    margin: 0 0 20px 0;
+}
+
+.staff table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.staff table th,
+.staff table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.staff .status.vacation {
+    color: #e74c3c;
+}
+
+.staff .status.at-work {
+    color: #2ecc71;
+}
+
+.view-all-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #00695c;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.view-all-btn:hover {
+    background-color: #004d40;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.add-staff-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #00695c;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-staff-btn:hover {
+    background-color: #004d40;
+}
+
+td[contenteditable] {
+    border: 1px solid #ddd;
+    padding: 5px;
+}

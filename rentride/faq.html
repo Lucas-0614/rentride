@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Van Rental - RentRide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles1.css">
+    <style>
+        .no-results {
+            display: none;
+            color: red;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Additional styles for FAQ */
+        .faq-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        .faq-section {
+            margin-bottom: 20px;
+        }
+
+        .faq-question {
+            cursor: pointer;
+            padding: 15px;
+            border: 1px solid #666;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 15px;
+            margin-top: 10px;
+            background-color: #444;
+            border: 1px solid #666;
+            border-radius: 5px;
+        }
+
+        .faq-answer p {
+            margin: 0;
+        }
+
+        .faq-question.active {
+            background-color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.php">
+                <img src="img/logo.png" alt="RentRide Logo">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="services.html" class="services-button">Services</a></li>
+                <li class="dropdown">
+                    <a href="vehicle.html" class="vehicle-button">Vehicle</a>
+                    <ul class="dropdown-content">
+                        <li><a href="cars.html">Cars</a></li>
+                        <li><a href="vans.html">Vans</a></li>
+                    </ul>
+                </li>
+                <li><a href="faq.html" class="faq-button">FAQ</a></li>
+                <li><a href="terms.html" class="terms-button">Terms & Conditions</a></li>
+                <li><a href="logout.php">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+
+    <main>
+        <div class="hero-section">
+            <h1>Rent Ride - Frequently Asked Questions</h1>
+            <p>Find answers to common questions about car rentals below.</p>
+        </div>
+
+        <div class="faq-container">
+            <div class="faq-section">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>1. How do I book a car rental?</span>
+                    <span>&#43;</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Booking a car rental is simple. You can book online through our website or contact our customer
+                        service for assistance.</p>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>2. What documents do I need to rent a car?</span>
+                    <span>&#43;</span>
+                </div>
+                <div class="faq-answer">
+                    <p>To rent a car, you typically need a valid driver's license, a credit card for payment, and
+                        sometimes an additional form of identification.</p>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>3. Are there age restrictions for renting a car?</span>
+                    <span>&#43;</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, rental companies often require drivers to be at least 21 years old. Additional fees may
+                        apply for drivers under 25.</p>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>4. Can I modify or cancel my car reservation?</span>
+                    <span>&#43;</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, you can usually modify or cancel your reservation online or by contacting our customer
+                        support team.</p>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>5. What if the car breaks down during my rental period?</span>
+                    <span>&#43;</span>
+                </div>
+                <div class="faq-answer">
+                    <p>If the car breaks down, contact our roadside assistance immediately. We will arrange for
+                        assistance to get you back on track.</p>
+                </div>
+            </div>
+
+            <!-- Add more FAQ sections as needed -->
+
+        </div>
+
+        <div class="no-results">No FAQs found</div>
+    </main>
+
+    <footer class="footer-distributed">
+        <div class="footer-left">
+            <h3>Rent<span>Ride</span></h3>
+            <p class="footer-links">
+                <a href="index.html" class="link-1">Home</a>
+                <a href="services.html">Services</a>
+                <a href="index.html">About</a>
+                <a href="faq.html">Faq</a>
+                <a href="terms.html">Terms&Conditions</a>
+            </p>
+            <p class="footer-company-name">RentRide © 2024</p>
+        </div>
+        <div class="footer-center">
+            <div>
+                <i class="fa fa-map-marker"></i>
+                <p><span>SO-5-6.Menaraa 1,No 3 Jalan Bangsar</span> KL Eco City, Kuala Lumpur</p>
+            </div>
+            <div>
+                <i class="fa fa-phone"></i>
+                <p>+601131386772</p>
+            </div>
+            <div>
+                <i class="fa fa-envelope"></i>
+                <p><a href="mailto:support@company.com">support@RentRide.com</a></p>
+            </div>
+        </div>
+        <div class="footer-right">
+            <p class="footer-company-about">
+                <span>About the company</span>
+                Rent Ride: Your trusted partner in seamless car rental experiences, offering a diverse fleet and
+                exceptional service tailored to your journey's needs.
+            </p>
+            <div class="footer-icons">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAnswer(question) {
+            const answer = question.nextElementSibling;
+            question.classList.toggle("active");
+            answer.style.display = answer.style.display === "none" ? "block" : "none";
+        }
+    </script>
+</body>
+
+</html>

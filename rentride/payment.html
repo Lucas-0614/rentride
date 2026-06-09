@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .payment-form {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+        .payment-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .payment-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .payment-form input[type="text"], .payment-form input[type="number"], .payment-form input[type="email"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .payment-form .pay-button, .payment-form .cancel-button {
+            background-color: #ff6600;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+        }
+        .payment-form .pay-button:hover, .payment-form .cancel-button:hover {
+            background-color: #e65c00;
+        }
+        .payment-form .cancel-button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-form">
+        <h2>Payment Details</h2>
+        <form id="paymentForm" action="payment.php" method="POST" onsubmit="return confirmPayment(event)">
+            <label for="cardName">Cardholder's Name:</label>
+            <input type="text" id="cardName" name="cardName" required>
+
+            <label for="cardNumber">Card Number:</label>
+            <input type="text" id="cardNumber" name="cardNumber" required>
+
+            <label for="expiryDate">Expiry Date (MM/YY):</label>
+            <input type="text" id="expiryDate" name="expiryDate" required>
+
+            <label for="cvv">CVV:</label>
+            <input type="number" id="cvv" name="cvv" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="amount">Amount (RM):</label>
+            <input type="text" id="amountDisplay" name="amountDisplay" readonly>
+            <input type="hidden" id="amount" name="amount" value="">
+
+            <button type="submit" class="pay-button">Pay Now</button>
+            <button type="button" class="cancel-button" onclick="cancelBooking()">Cancel Booking</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const amount = urlParams.get('amount');
+            document.getElementById('amount').value = amount;
+            document.getElementById('amountDisplay').value = amount;
+        });
+
+        function confirmPayment(event) {
+            event.preventDefault();
+            if (confirm('Are you sure you want to proceed with the payment?')) {
+                document.getElementById('paymentForm').submit();
+            }
+        }
+
+        function cancelBooking() {
+            if (confirm('Are you sure you want to cancel the booking?')) {
+                window.location.href = 'booking.html';
+            }
+        }
+    </script>
+</body>
+</html>
